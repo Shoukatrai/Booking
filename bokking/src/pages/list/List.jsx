@@ -30,11 +30,39 @@ const List = () => {
 
             <div className="lsItem">
               <label>Check-in Date</label>
-              <span>{`${format(date[0].startDate, "MM/dd/yyyy")} to ${format(date[0].endDate, "MM/dd/yyyy")}`}</span>
-              <DateRange
-                onChange={(item)=>{setDate([item.selection])} } minDate = {new Date()}
+              <span onClick={() => setOpenDate(!opendate)} >{`${format(date[0].startDate, "MM/dd/yyyy")} to ${format(date[0].endDate, "MM/dd/yyyy")}`}</span>
+              {opendate && <DateRange
+                onChange={(item) => { setDate([item.selection]) }} minDate={new Date()}
+                ranges={date}
+              />}
+            </div>
 
-              />
+            <div className="lsItem">
+              <label >Options</label>
+              <div className="lsOptionItem">
+                <span className="lsOptionText">min price <small>per night</small></span>
+                <input type="number" className='lsOptionInput' />
+              </div>
+
+              <div className="lsOptionItem">
+                <span className="lsOptionText">Max price <small>per night</small></span>
+                <input type="number" className='lsOptionInput' />
+              </div>
+
+              <div className="lsOptionItem">
+                <span className="lsOptionText">Adult</span>
+                <input type="number" className='lsOptionInput' placeholder= {options.adult} />
+              </div>
+
+              <div className="lsOptionItem">
+                <span className="lsOptionText">Children</span>
+                <input type="number" className='lsOptionInput' placeholder= {options.children} />
+              </div>
+
+              <div className="lsOptionItem">
+                <span className="lsOptionText">Room</span>
+                <input type="number" className='lsOptionInput' placeholder= {options.room} />
+              </div>
             </div>
 
 
