@@ -26,16 +26,24 @@ mongoose.connection.on("disconnected" , ()=>{
 // make middlewares
 app.use(express.json())
 
+
 app.use("/api/auth" , authRoute)
 app.use("/api/users" , usersRoute)
 app.use("/api/hotels" , hotelsRoute)
 app.use("/api/rooms" , roomsRoute)
 
-
-//first api
-app.get("/users" , (req , res)=>{
-    res.send("hello first req")
+app.use((err , req , res , next)=>{
+  const errorStatus = err.status || 500;
+  const errorMessage = err.message || "Something went wrong";
+  return res.status(errorStatus).json({
+    success : false,
+    status : errorStatus,
+    message : errorMessage,
+    stack : err.stack,
+  });
 })
+
+
 
 
 
