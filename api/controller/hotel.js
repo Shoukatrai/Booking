@@ -71,3 +71,15 @@ export const getHotels = async (request, response, next) => {
     next(error.message);
   }
 };
+
+export const countByCity = async (request, response, next) => {
+  try {
+    const hotels = await Hotel.find();
+    response.status(200).json({
+        status :true,
+        data : hotels
+    });
+  } catch (error) {
+    next(error.message);
+  }
+};

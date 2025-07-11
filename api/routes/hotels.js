@@ -13,6 +13,8 @@ router.put("/:id", verifyAdmin,updateHotel );
 router.get("/:id", getHotel );
 //GET ALL
 router.get("/", getHotels);
+router.get("/countByCity", getHotels);
+router.get("/countByType", getHotels);
 
 
 export default router;
