@@ -1,6 +1,7 @@
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import { createError } from "../utils/error.js";
+import jwt from "jsonwebtoken";
 
 export const register = async (req, res, next) => {
   try {
@@ -33,26 +34,33 @@ export const login = async (req, res, next) => {
       return next(createError(404, "User Not Found!"));
     }
 
-    console.log("user" , user)
-
     const isPassCorrect = await bcrypt.compare(
       req.body.password,
       user.password
     );
-    console.log("isPassCorrect" , isPassCorrect)
-
 
     if (!isPassCorrect) {
       return next(createError(400, "Wrong password or username!"));
     }
 
-    const {password , isAdmin , ...otherDeatils} = user._doc 
+    // CREATE TOKEN
+    const token = jwt.sign(
+      { id: user._id, isAdmin: user.isAdmin },
+      process.env.PRIVATE_KEY
+    );
 
-    res.status(200).json({
-      status: true,
-      data: otherDeatils,
-      message: "User has been Successflully Login!",
-    });
+    const { password, isAdmin, ...otherDeatils } = user._doc;
+
+    res
+      .cookie("access_token", token, {
+        httpOnly: true,
+      })
+      .status(200)
+      .json({
+        status: true,
+        data: otherDeatils,
+        message: "User has been Successflully Login!",
+      });
   } catch (error) {
     next(error);
   }
