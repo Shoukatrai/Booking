@@ -1,0 +1,15 @@
+import express from "express";
+import { createHotel, updateHotel } from "../controllers/hotels.js";
+const router = express.Router()
+
+//CREATE
+router.post("/" , createHotel)
+//UPDATE
+router.put("/:id" , updateHotel)
+
+//DELETE
+//GET
+//GET ALL
+// router.get("/auth")
+
+export default router
