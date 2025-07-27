@@ -1,8 +1,26 @@
 import { useEffect, useState } from 'react';
 import './feaured.css';
 import axios from 'axios';
+import { BASE_URL } from '../../utils';
+import { apiEndPoints } from '../../constant/apiEndPoints';
 
 const Featured = () => {
+    const [loading , setLoading] = useState(false)
+    const [data , setData] = useState([])
+    const fetchHotelCountByCity = async()=>{
+        try {
+            const response = await axios.get(`${BASE_URL}${apiEndPoints.getHotelCountByCity}`)
+            console.log("response" , response.data)
+            setData(response.data.data)
+        } catch (error) {
+            console.log("error", error)
+        }
+    }
+    useEffect(()=>{
+        fetchHotelCountByCity()
+    },[])
+
+    console.log("data" , data)
 return (
     <div className="featured">
         {loading ? (
@@ -17,7 +35,7 @@ return (
                     />
                     <div className="featuredTitles">
                         <h1>Berlin</h1>
-                        <h2>{data} properties</h2>
+                        <h2>{data[0]} properties</h2>
                     </div>
                 </div>
 
@@ -29,7 +47,7 @@ return (
                     />
                     <div className="featuredTitles">
                         <h1>Madrid</h1>
-                        <h2>{data} properties</h2>
+                        <h2>{data[1]} properties</h2>
                     </div>
                 </div>
                 <div className="featuredItem">
@@ -40,7 +58,7 @@ return (
                     />
                     <div className="featuredTitles">
                         <h1>London</h1>
-                        <h2>{data} properties</h2>
+                        <h2>{data[2]} properties</h2>
                     </div>
                 </div>
             </>

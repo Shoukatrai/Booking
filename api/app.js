@@ -6,14 +6,14 @@ import cookieParser from "cookie-parser";
 import authRoute from "./routes/auth.js";
 import usersRoute from "./routes/users.js"
 import roomRouter from "./routes/rooms.js";
-
+import cors from "cors"
 
 const app = express()
 dotenv.config()
 app.use(express.json())
 app.use(express.urlencoded({extended : true}))
 app.use(cookieParser())
-
+app.use(cors())
 //middlewares
 app.use("/api/auth" , authRoute)
 app.use("/api/users" , usersRoute)
