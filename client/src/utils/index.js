@@ -1,1 +1,1 @@
-export const BASE_URL = `https://vercel.com/shoukatrais-projects/booking/api`
+export const BASE_URL = `https://vercel.com/shoukatrais-projects/booking/api/`
