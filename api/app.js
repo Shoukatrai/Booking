@@ -20,6 +20,6 @@ app.use("/api/users" , usersRoute)
 app.use("/api/hotels" , hotelsRoute)
 app.use("/api/rooms" , roomRouter)
 
-// app.get("/" , (req , res)=>res.send("server up"))
+app.get("/" , (req , res)=>res.send("server up"))
 dbConnection()
 app.listen(process.env.PORT , ()=>console.log("Server started!"))
